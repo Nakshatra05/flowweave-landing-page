@@ -37,6 +37,15 @@ const cardPositions = [
   { bottom: '15%', left: '30%', right: '30%', rotate: '2deg', zIndex: 5 }
 ];
 
+// Repositioned logos to avoid content overlap and doubled Telegram logo size
+// Arweave logo now positioned much lower on the page
+// AO logo rotated more counterclockwise and moved more to the left
+const logoPositions = [
+  { src: '/logos/telegram.png', alt: 'Telegram Logo', top: '42%', left: '2%', rotate: '-5deg', size: '180px', zIndex: 6 },
+  { src: '/logos/Arweave.png', alt: 'Arweave Logo', top: '70%', right: '25%', rotate: '4deg', size: '200px', zIndex: 9 },
+  { src: '/logos/ao.png', alt: 'AO Logo', top: '65%', right: '45%', rotate: '-13deg', size: '150px', zIndex: 8 },
+];
+
 function App() {
   return (
     <div className="h-screen overflow-hidden bg-gradient-to-b from-gray-50 to-purple-50 flex flex-col">
@@ -66,6 +75,30 @@ function App() {
                   description={card.description}
                   index={index}
                   type="filled"
+                />
+              </div>
+            ))}
+            
+            {/* Logos scattered below the buttons */}
+            {logoPositions.map((logo, index) => (
+              <div
+                key={`logo-${index}`}
+                className="absolute drop-shadow-md hover:scale-110 transition-all duration-300"
+                style={{
+                  top: logo.top,
+                  left: logo.left,
+                  right: logo.right,
+                  transform: `rotate(${logo.rotate})`,
+                  zIndex: logo.zIndex,
+                  width: logo.size,
+                  height: logo.size,
+                }}
+              >
+                <img 
+                  src={logo.src} 
+                  alt={logo.alt}
+                  className="w-full h-full object-contain"
+                  style={{ filter: 'drop-shadow(0px 3px 5px rgba(0,0,0,0.25))' }}
                 />
               </div>
             ))}
